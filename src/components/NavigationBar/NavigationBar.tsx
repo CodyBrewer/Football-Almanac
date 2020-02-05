@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
 
 import Routes from "../App/Routes";
 
@@ -37,7 +37,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const NavigationBar: React.FC = (props: any) => {
+const NavigationBar: React.FC<RouteComponentProps> = ({
+  history,
+  location,
+  match
+}: RouteComponentProps) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -56,7 +60,7 @@ const NavigationBar: React.FC = (props: any) => {
   };
 
   const activeRoute = (routeName: string): boolean => {
-    return props.location.pathname === routeName ? true : false;
+    return location.pathname === routeName ? true : false;
   };
 
   return (
