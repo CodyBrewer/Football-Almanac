@@ -1,11 +1,19 @@
 import React, { useState } from "react";
+
+import { NavLink, withRouter } from "react-router-dom";
+
+import Routes from "../App/Routes";
+
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import {
   AppBar,
   Toolbar,
   Typography,
   IconButton,
-  Drawer
+  Drawer,
+  MenuList,
+  MenuItem,
+  ListItemText
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -19,51 +27,20 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1
+    },
+    drawer: {
+      width: 300
+    },
+    fullList: {
+      width: "auto"
     }
   })
 );
 
-const App: React.FC = () => {
+const NavigationBar: React.FC = (props: any) => {
   const classes = useStyles();
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const toggleDrawer = (open: boolean) => (
-  //   event: React.KeyboardEvent | React.MouseEvent
-  // ) => {
-  //   if (
-  //     event.type === "keydown" &&
-  //     ((event as React.KeyboardEvent).key === "Tab" ||
-  //       (event as React.KeyboardEvent).key === "Shift")
-  //   ) {
-  //     setIsOpen(open);
-  //   }
-  // };
-
-  // return (
-  //   <div>
-  //     <div className={classes.root}>
-  //       <AppBar position="static">
-  //         <Toolbar>
-  //           <IconButton
-  //             edge="start"
-  //             className={classes.menuButton}
-  //             color="inherit"
-  //             aria-label="menu"
-  //           >
-  //             <MenuIcon />
-  //           </IconButton>
-  //           <Typography variant="h6" className={classes.title}>
-  //             Football Almanac
-  //           </Typography>
-  //         </Toolbar>
-  //       </AppBar>
-  //     </div>
-  //     <Drawer open={isOpen} onClose={toggleDrawer(false)}>
-  //       Hello Drawer!
-  //     </Drawer>
-  //   </div>
-  // );
   const [isOpen, setIsOpen] = useState(false);
+
   const toggleDrawer = (open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent
   ) => {
@@ -74,7 +51,12 @@ const App: React.FC = () => {
     ) {
       return;
     }
+
     setIsOpen(open);
+  };
+
+  const activeRoute = (routeName: any) => {
+    return props.location.pathname === routeName ? true : false;
   };
 
   return (
@@ -97,11 +79,36 @@ const App: React.FC = () => {
           </Toolbar>
         </AppBar>
       </div>
-      <Drawer open={isOpen} onClose={toggleDrawer(false)}>
-        Hello Drawer!
+      <Drawer
+        classes={{ paper: classes.drawer }}
+        open={isOpen}
+        onClose={toggleDrawer(false)}
+      >
+        <div
+          className={classes.fullList}
+          role="presentation"
+          onClick={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)}
+        >
+          <MenuList>
+            {Routes.map((prop, key) => {
+              return (
+                <NavLink
+                  to={prop.path}
+                  style={{ textDecoration: "none" }}
+                  key={key}
+                >
+                  <MenuItem selected={activeRoute(prop.path)}>
+                    <ListItemText primary={prop.sidebarName} />
+                  </MenuItem>
+                </NavLink>
+              );
+            })}
+          </MenuList>
+        </div>
       </Drawer>
     </div>
   );
 };
 
-export default App;
+export default withRouter(NavigationBar);
