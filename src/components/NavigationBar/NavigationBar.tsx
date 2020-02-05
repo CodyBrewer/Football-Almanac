@@ -55,7 +55,7 @@ const NavigationBar: React.FC = (props: any) => {
     setIsOpen(open);
   };
 
-  const activeRoute = (routeName: any) => {
+  const activeRoute = (routeName: string): boolean => {
     return props.location.pathname === routeName ? true : false;
   };
 
