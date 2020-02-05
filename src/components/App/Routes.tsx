@@ -1,14 +1,14 @@
 import React from "react";
 
-const Home: React.FC = () => {
+const Home: React.FC = (): JSX.Element => {
   return <h1>Home</h1>;
 };
 
-const Standings: React.FC = () => {
+const Standings: React.FC = (): JSX.Element => {
   return <h1>Standings</h1>;
 };
 
-const Teams: React.FC = () => {
+const Teams: React.FC = (): JSX.Element => {
   return <h1>Teams</h1>;
 };
 
