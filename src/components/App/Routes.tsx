@@ -12,7 +12,13 @@ const Teams: React.FC = () => {
   return <h1>Teams</h1>;
 };
 
-const Routes = [
+export interface IRoute {
+  path: string;
+  sidebarName: string;
+  component: React.ComponentType;
+}
+
+const Routes: IRoute[] = [
   {
     path: "/",
     sidebarName: "Home",

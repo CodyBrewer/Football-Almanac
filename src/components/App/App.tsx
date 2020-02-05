@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Routes from "./Routes";
+import Routes, { IRoute } from "./Routes";
 
 import NavigationBar from "../NavigationBar/NavigationBar";
 
@@ -9,7 +9,7 @@ const App: React.FC = () => {
     <div>
       <NavigationBar />
       <Switch>
-        {Routes.map((route: any) => (
+        {Routes.map((route: IRoute) => (
           <Route exact path={route.path} key={route.path}>
             <route.component />
           </Route>
