@@ -1,8 +1,5 @@
 import React from "react";
-
-const Home: React.FC = (): JSX.Element => {
-  return <h1>Home</h1>;
-};
+import Home from "../Home/Home";
 
 const Standings: React.FC = (): JSX.Element => {
   return <h1>Standings</h1>;
